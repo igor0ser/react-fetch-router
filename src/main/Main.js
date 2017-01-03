@@ -12,6 +12,11 @@ const Main = ({ isFetching, data }) => (
     		<b>data.length - </b>{data.length}
     	</li>
     </ul>
+    <ul>
+      {data.map((item, i) => (
+        <li key={i}>{item.data.title}</li>
+      ))}
+    </ul>
   </div>
 );
 

@@ -7,13 +7,16 @@ import './index.css';
 
 const routes = [{
   component: Help,
-  path: 'help'
+  path: 'help',
+  url: 'https://www.reddit.com/r/help.json'
 }, {
   component: Home,
-  path: 'home'
+  path: 'home',
+  url: 'https://www.reddit.com/r/home.json'
 }, {
   component: Main,
-  path: 'main'
+  path: 'main',
+  url: 'https://www.reddit.com/r/help.json'
 }];
 
 ReactDOM.render(

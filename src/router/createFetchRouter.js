@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Route, Router, browserHistory } from 'react-router';
+import axios from 'axios';
 import App from '../App';
 
 const createFetchRouter = (routes) => {
@@ -14,8 +15,30 @@ const createFetchRouter = (routes) => {
       console.log(props);
     }
 
+    fetchData(){
+      this.setState({data: [], isFetching: true});
+      const url = routes.find(route => 
+        route.path === this.props.route.path).url;
+      console.log(url);
+
+      axios.get(url)
+        .then((responce) => {
+          console.log(12345);
+          const data = responce.data.data.children;
+          console.log(data);
+          this.setState({data: data, isFetching: false});
+        })
+    }
+
+    componentWillReceiveProps({ route }){
+      console.log('componentWillReceiveProps');
+      if (route.path === this.props.route.path) return;
+      this.fetchData();
+    }
+
     componentDidMount(){
-      
+      console.log('componentDidMount');
+      this.fetchData();
     }
 
     render() {
@@ -36,8 +59,8 @@ const createFetchRouter = (routes) => {
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         {
-          routes.map((route) => (
-            <Route path={route.path} component={Tab}/>
+          routes.map((route, i) => (
+            <Route path={route.path} component={Tab} key={i}/>
           ))
         }
       </Route>
