@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Route, Router, browserHistory } from 'react-router';
+import { Route } from 'react-router';
 import axios from 'axios';
 import App from '../App';
 
@@ -56,20 +56,11 @@ const fetchDataRouter = (routes) => {
 
   }
 
-  const router = (
-    <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        {
-          routes.map((route, i) => (
-            <Route path={route.path} component={Page} key={i}/>
-          ))
-        }
-      </Route>
-    </Router>
-  )
-
-  return router;
-
+  return routes.map((route, i) =>
+    (
+      <Route path={route.path} component={Page} key={i}/>
+    )
+  );
 }
 
 export default fetchDataRouter;

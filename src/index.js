@@ -2,6 +2,9 @@ import ReactDOM from 'react-dom';
 import Help from './help/Help';
 import Home from './home/Home';
 import Main from './main/Main';
+import { Route, Router, browserHistory } from 'react-router';
+import React, { PureComponent } from 'react';
+import App from './App';
 import fetchDataRouter from './router/fetchDataRouter';
 import './index.css';
 
@@ -20,6 +23,10 @@ const routes = [{
 }];
 
 ReactDOM.render(
-  fetchDataRouter(routes),
+  <Router history={browserHistory}>
+    <Route path="/" component={App}>
+      {fetchDataRouter(routes)}
+    </Route>
+  </Router>,
   document.getElementById('root')
 );
