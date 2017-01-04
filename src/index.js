@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import Help from './help/Help';
 import Home from './home/Home';
 import Main from './main/Main';
-import createFetchRouter from './router/createFetchRouter';
+import fetchDataRouter from './router/fetchDataRouter';
 import './index.css';
 
 const routes = [{
@@ -20,6 +20,6 @@ const routes = [{
 }];
 
 ReactDOM.render(
-  createFetchRouter(routes),
+  fetchDataRouter(routes),
   document.getElementById('root')
 );

@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Main = ({ isFetching, data }) => (
+const Main = ({ loading, data }) => (
   <div>
     <h3>Main</h3>
     <p><em>Our awesome main page!!!</em></p>
     <ul>
     	<li>
-    		<b>isFetching - </b>{isFetching.toString()}
+    		<b>loading - </b>{loading.toString()}
     	</li>
     	<li>
     		<b>data.length - </b>{data.length}
