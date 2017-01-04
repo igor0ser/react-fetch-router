@@ -1,32 +1,26 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { Route } from 'react-router';
 import axios from 'axios';
-import App from '../App';
 
-const fetchDataRouter = (routes) => {
-
-  const getRoute = (path) => 
+function fetchDataRouter(routes) {
+  const getRoute = path =>
     routes.find(route => route.path === path);
 
   class Page extends PureComponent {
-    constructor(props){
+    constructor(props) {
       super(props);
       this.state = {
         loading: true,
         data: [],
         route: getRoute(this.props.route.path)
-      }
+      };
     }
 
-    fetchData(url){
-      axios.get(url)
-        .then((responce) => {
-          const data = responce.data.data.children;
-          this.setState({data: data, loading: false});
-        })
+    componentDidMount() {
+      this.fetchData(this.state.route.url);
     }
 
-    componentWillReceiveProps({ route }){
+    componentWillReceiveProps({ route }) {
       if (route.path === this.props.route.path) return;
 
       const nextRoute = getRoute(route.path);
@@ -36,11 +30,14 @@ const fetchDataRouter = (routes) => {
         route: nextRoute
       });
       this.fetchData(nextRoute.url);
-
     }
 
-    componentDidMount(){
-      this.fetchData(this.state.route.url);
+    fetchData(url) {
+      axios.get(url)
+        .then((responce) => {
+          const data = responce.data.data.children;
+          this.setState({ data, loading: false });
+        });
     }
 
     render() {
@@ -56,9 +53,15 @@ const fetchDataRouter = (routes) => {
 
   }
 
-  return routes.map((route, i) =>
+  Page.propTypes = {
+    route: PropTypes.shape({
+      path: PropTypes.string.isRequired
+    }).isRequired
+  };
+
+  return routes.map(route =>
     (
-      <Route path={route.path} component={Page} key={i}/>
+      <Route path={route.path} component={Page} key={route.path} />
     )
   );
 }

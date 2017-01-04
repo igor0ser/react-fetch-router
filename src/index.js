@@ -1,9 +1,9 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
+import { Route, Router, browserHistory } from 'react-router';
 import Help from './help/Help';
 import Home from './home/Home';
 import Main from './main/Main';
-import { Route, Router, browserHistory } from 'react-router';
-import React, { PureComponent } from 'react';
 import App from './App';
 import fetchDataRouter from './router/fetchDataRouter';
 import './index.css';
